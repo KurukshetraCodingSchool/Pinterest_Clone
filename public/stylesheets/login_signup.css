@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.auth-box {
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.logo svg {
+  margin-bottom: 20px;
+}
+
+.auth-box h2 {
+  font-size: 1.5rem;
+  margin-bottom: 25px;
+  color: #111;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"] {
+  padding: 12px 15px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.auth-btn {
+  background-color: #e60023;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.auth-btn:hover {
+  background-color: #c7001e;
+}
+
+p {
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+a {
+  color: #e60023;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,92 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #f4f4f4;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+}
+
+.nav {
+  width: 100%;
+  height: 10vh;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2vw;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+}
+
+.left svg {
+  height: 5vh;
+}
+
+.left h2 {
+  font-size: 2.2vh;
+  color: #111;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+}
+
+.right h4 {
+  font-size: 1.8vh;
+  color: #3b5d7a;
+  cursor: pointer;
+}
+
+.right h4:hover {
+  color: #e60023;
+}
+
+.btn {
+  padding: 10px 18px;
+  font-size: 1.6vh;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.login {
+  background-color: white;
+  color: #e60023;
+  border: 1px solid #e60023;
+}
+
+.login:hover {
+  background-color: #ffe5ea;
+}
+
+.signup {
+  background-color: #e60023;
+  color: white;
+}
+
+.signup:hover {
+  background-color: #c7001d;
+}
