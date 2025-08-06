@@ -2,6 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 const session = require('express-session')
 const db = require('./config/db')
+const flash = require('connect-flash');
 const passport = require('passport')
 const User = require('./models/user');
 var path = require('path');
@@ -35,6 +36,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+
+app.use(flash());
+
+// Middleware to pass flash messages to views
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="../stylesheets/login_signup.css" />
 </head>
 <body>
+  <%- include('partials/flash') %>
   <div class="auth-container">
     <div class="auth-box">
       <div class="logo">
@@ -14,11 +15,12 @@
 
       </div>
       <h2>Welcome back</h2>
-      <form action="/login" method="post">
-        <input type="text" name="username" placeholder="Enter username" required />
-        <input type="password" name="password" placeholder="Password" required />
-        <input type="submit" value="Log in" class="auth-btn" />
-      </form>
+      <form method="POST" action="/login">
+  <input type="email" name="email" placeholder="Enter your email" required />
+  <input type="password" name="password" placeholder="Enter your password" required />
+  <input type="submit" value="Login" class="auth-btn" />
+</form>
+
       <p>Not on Pinterest yet? <a href="/signup">Sign up</a></p>
     </div>
   </div>

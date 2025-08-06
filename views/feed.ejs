@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>All Pinterest Posts</title>
+  <link rel="stylesheet" href="../stylesheets/allpost.css" />
+</head>
+<body>
+
+  <%- include('partials/flash') %>
+
+  <h1>All Pinterest Posts 📌</h1>
+
+  <div class="posts-container">
+    <% if (posts && posts.length > 0) { %>
+      <% posts.forEach((post) => { %>
+        <div class="post-card">
+          <img src="<%= post.image %>" alt="Post Image">
+          <div class="content">
+            <h2><%= post.title %></h2>
+            <p><%= post.description %></p>
+            <p class="date">📅 <%= post.createdAt.toDateString() %></p>
+          </div>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p style="text-align:center;">No posts found.</p>
+    <% } %>
+  </div>
+
+</body>
+</html>
