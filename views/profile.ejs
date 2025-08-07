@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
-
+    <title><%= user.username %>'s Profile</title>
+    <link rel="stylesheet" href="../stylesheets/profile.css">
 </head>
 <body>
-  <%- include('partials/flash') %>
-    <h1> <%= user.username %> </h1>
-    <h1> <%= user.Dob %> </h1>
-    <a href="/createpost"> Create A Post</a>
-   
+    <div class="profile-container">
+        <%- include('partials/flash') %>
+
+        <h1>Welcome, <%= user.username %> 👋</h1>
+        <p>Date of Birth: <strong><%= user.Dob %></strong></p>
+
+        <div class="actions">
+            <a href="/createpost" class="btn primary">Create A Post</a>
+            <a href="/reset-password" class="btn">Reset Password</a>
+             <form  action="/logout"> <button class="btn danger"> logout</button></form>
+        </div>
+    </div>
 </body>
 </html>

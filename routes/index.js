@@ -50,12 +50,55 @@ router.post("/login", function (req, res, next) {
         return next(err);
       }
 
-      req.flash("success", "✅ Logged in successfully!");
+      req.flash("success_msg", "✅ Logged in successfully!");
       return res.redirect("/profile");
     });
   })(req, res, next);
 });
 
+router.get('/forget',async(req,res,next)=>{
+  res.render("forget");
+})
+
+router.post("/forget", async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.body.email });
+        if (!user)
+            return res.redirect("/forget?error=User not found!");
+
+        await user.setPassword(req.body.newpassword);
+        await user.save();
+        req.flash("success_msg", "✅ password Changed Successfully")
+        res.redirect("/login?msg=Password reset successfully!");
+    } catch (error) {
+        res.redirect("/forget?error=" + encodeURIComponent(error.message));
+    }
+});
+
+
+router.get('/Reset-password',async(req,res)=>{
+  res.render("Reset");
+})
+
+router.post('/Reset-password',async(req,res)=>{
+   try {
+        await req.user.changePassword(
+            req.body.oldpassword,
+            req.body.newpassword
+        );
+        await req.user.save();
+        res.redirect("/profile");
+    } catch (error) {
+        res.send(error);
+    }
+})
+
+router.get("/logout", isLoggedIn, function (req, res, next) {
+    req.logout(() => {
+      req.flash("success_msg", "Logout Succesfully")
+        res.redirect("/login");
+    });
+});
 
 router.get('/profile',isLoggedIn, async(req, res, next)=> {
   res.render('profile',{user:req.user});

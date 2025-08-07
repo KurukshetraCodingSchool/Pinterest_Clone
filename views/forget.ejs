@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forgot Password</title>
+    <link rel="stylesheet" href="../stylesheets/forget.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Reset Your Password</h2>
+        <form action="/forget" method="POST" class="forget-form">
+            <label for="email">email</label>
+            <input type="email" id="email" name="email" required>
+            <label for="newpassword">New Password</label>
+            <input type="password" id="newpassword" name="newpassword" required>
+            <button type="submit">Reset Password</button>
+        </form>
+    </div>
+</body>
+</html>
