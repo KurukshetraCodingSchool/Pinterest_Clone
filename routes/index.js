@@ -2,6 +2,7 @@ var express = require('express');
 const User = require('../models/user')
 const Post = require('../models/post');
 const passport = require("passport");
+const upload = require('../utils/multer');
 const LocalStrategy = require("passport-local").Strategy;
 passport.use(new LocalStrategy({ usernameField: 'email' }, User.authenticate()));
 
@@ -108,26 +109,88 @@ router.get('/createpost',isLoggedIn, async(req, res, next)=> {
 });
 
 
-router.post('/createpost', isLoggedIn, async (req, res) => {
+router.post('/createpost', isLoggedIn, upload.single("postImage"), async (req, res) => {
   try {
     const post = await Post.create({
       title: req.body.title,
-      image: req.body.image,
+      postImage: req.file ? req.file.filename : null,  // multer se aayi file ka naam
       description: req.body.description,
       user: req.user._id
     });
-    console.log('pst created',post);
-    
-    res.redirect('/feed'); // or redirect to /posts or the new post page
+    console.log('✅ Post created', post);
+
+    req.flash("success_msg", "✅ Post Created Successfully!");
+    res.redirect('/feed');
   } catch (err) {
     console.error(err);
     res.send("Failed to create post: " + err.message);
   }
 });
+
 router.get('/feed', isLoggedIn, async (req, res) => {
   const posts = await Post.find().populate('user').sort({ createdAt: -1 });
-  res.render('feed', { posts });
+  res.render('feed', { posts});
 });
+router.post('/delete/:id',async (req,res,next)=>{
+  try {
+    const posts = await Post.findByIdAndDelete(req.params.id);
+req.flash('success_msg', '❌Deleted successfully!');
+    res.redirect('/feed')
+  } catch (error) {
+    console.error("❌ Deleting Error",error);
+    res.status(500).send('❌ Error The Delteing Books')
+  }
+})
+
+router.get('/updatePost/:id', async(req, res, next) => {
+  try {
+    const posts = await Post.findById(req.params.id);
+    res.render('updatePost',{post:posts});
+  } catch (error) {
+    console.log(error);
+    res.send(error)
+  }
+})
+// UPDATE Post
+router.post('/update/:id', isLoggedIn, upload.single("postImage"), async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    if (!post) {
+      req.flash("error_msg", "❌ Post not found!");
+      return res.redirect("/feed");
+    }
+
+    // Update fields
+    post.title = req.body.title;
+    post.description = req.body.description;
+
+    // Agar user ne nayi image upload ki hai
+    if (req.file) {
+      post.postImage = req.file.filename;
+    }
+
+    await post.save();
+
+    req.flash("success_msg", "✅ Post Updated Successfully!");
+    res.redirect("/feed");
+  } catch (err) {
+    console.error(err);
+    req.flash("error_msg", "❌ Failed to update post!");
+    res.redirect("/feed");
+  }
+});
+
+// DELETE Post
+router.get("/deletepost/:id", async (req, res) => {
+  try {
+    await Post.findByIdAndDelete(req.params.id);
+    res.redirect("/posts");
+  } catch (err) {
+    res.status(500).send("Error deleting post: " + err.message);
+  }
+});
+
 // AUTHENTICATED ROUTE MIDDLEWARE
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {

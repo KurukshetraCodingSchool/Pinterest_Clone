@@ -27,24 +27,34 @@ p {
 .actions {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 15px;
 }
 
 .btn {
-    padding: 12px 20px;
+    padding: 12px 10px;
     text-decoration: none;
     color: white;
     border: none;
+    background: #02d483;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
     display: inline-block;
+    width: 60%;
 }
-
+.btn:hover{
+      background: #026941;
+}
 .primary {
     background-color: #007bff;
 }
-
+.primary.feed{
+background-color: #8bd40b;
+}
+.primary.feed:hover{
+background-color: #334f03;
+}
 .primary:hover {
     background-color: #0056b3;
 }

@@ -8,17 +8,11 @@
 <body>
   <h2 style="text-align: center;">Create New Post</h2>
 
-  <form action="/createpost" method="POST">
-    <label>Title:</label>
-    <input type="text" name="title" required placeholder="Enter post title" />
-
-    <label>Image URL:</label>
-    <input type="url" name="image" required placeholder="https://example.com/image.jpg" />
-
-    <label>Description:</label>
-    <textarea name="description" required placeholder="Write something about your post"></textarea>
-
-    <button type="submit">Create Post</button>
-  </form>
+<form action="/createpost" method="POST" enctype="multipart/form-data">
+  <input type="text" name="title" placeholder="Post Title" required>
+  <input type="file" name="postImage" accept="image/*" required>
+  <textarea name="description" placeholder="Post Description"></textarea>
+  <button type="submit">Create Post</button>
+</form>
 </body>
 </html>

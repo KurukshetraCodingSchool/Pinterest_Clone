@@ -10,24 +10,63 @@
 
   <%- include('partials/flash') %>
 
-  <h1>All Pinterest Posts 📌</h1>
-<a href="/profile"> ◀️Profile</a>
+  <h1 style="text-align:center;">All Pinterest Posts 📌</h1>
+  <a href="/profile"> ◀️Profile</a>
+
   <div class="posts-container">
-    <% if (posts && posts.length > 0) { %>
-      <% posts.forEach((post) => { %>
-        <div class="post-card">
-          <img src="<%= post.image %>" alt="Post Image">
-          <div class="content">
-            <h2><%= post.title %></h2>
-            <p><%= post.description %></p>
-            <p class="date">📅 <%= post.createdAt.toDateString() %></p>
-          </div>
+  <% if (posts && posts.length > 0) { %>
+    <% posts.forEach((post) => { %>
+      <div class="post-card">
+        <!-- Image -->
+        <img src="../uploads/images/<%= post.postImage %>" alt="Post Image"
+             onclick="openOverlay('<%= post.image %>', '<%= post.title %>', '<%= post.description %>', '<%= post.createdAt.toDateString() %>')">
+
+        <!-- Hover Actions -->
+        <div class="hover-actions">
+          <a href="/updatePost/<%= post._id %>">✏️ Edit</a>
+          <form action="/delete/<%= post._id %>" method="POST" onsubmit="return confirm('Delete this post?');">
+            <button type="submit">🗑️ Delete</button>
+          </form>
         </div>
-      <% }) %>
-    <% } else { %>
-      <p style="text-align:center;">No posts found.</p>
-    <% } %>
+
+        <!-- Content (Title, Description, Date) -->
+        <div class="content">
+          <h2><%= post.title %></h2>
+          <p><%= post.description %></p>
+          <p class="date">📅 <%= post.createdAt.toDateString() %></p>
+        </div>
+      </div>
+    <% }) %>
+  <% } else { %>
+    <p style="text-align:center;">No posts found.</p>
+  <% } %>
+</div>
+
+
+  <!-- Overlay Modal -->
+  <div class="overlay" id="overlay">
+    <div class="overlay-content">
+      <button class="close-btn" onclick="closeOverlay()">✖</button>
+      <img id="overlayImg" src="" alt="Overlay Image">
+      <h2 id="overlayTitle"></h2>
+      <p id="overlayDesc"></p>
+      <p id="overlayDate"></p>
+    </div>
   </div>
+
+  <script>
+    function openOverlay(img, title, desc, date) {
+      document.getElementById("overlay").style.display = "flex";
+      document.getElementById("overlayImg").src = img;
+      document.getElementById("overlayTitle").innerText = title;
+      document.getElementById("overlayDesc").innerText = desc;
+      document.getElementById("overlayDate").innerText = "📅 " + date;
+    }
+
+    function closeOverlay() {
+      document.getElementById("overlay").style.display = "none";
+    }
+  </script>
 
 </body>
 </html>

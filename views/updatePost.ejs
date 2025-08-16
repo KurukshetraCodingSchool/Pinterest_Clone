@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Update Post</title>
+  <link rel="stylesheet" href="../stylesheets/post.css">
+</head>
+<body>
+  <h2 style="text-align: center;">Update Post</h2>
+
+  <form action="/updatePost/<%= post._id %>" method="POST" enctype="multipart/form-data">
+  <input type="text" name="title" value="<%= post.title %>" required>
+  
+  <textarea name="description"><%= post.description %></textarea>
+  
+  <p>Current Image:</p>
+  <img src="/uploads/<%= post.postImage %>" width="150">
+
+  <p>Upload New Image (optional):</p>
+  <input type="file" name="postImage" accept="image/*">
+
+  <button type="submit">Update Post</button>
+</form>
+
+</body>
+</html>
